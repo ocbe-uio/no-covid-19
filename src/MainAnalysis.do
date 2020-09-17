@@ -99,18 +99,18 @@ putdocx paragraph, halign(center)
 putdocx image results/figs/treat_rand.png, width(5) height(4)
 
 
-putdocx save results/`today'_nocovid_report_preliminary.docx, replace
+putdocx save results/`today'_nocovid19_report.docx, replace
 
 ** description of randomisation and disposition by study arm
 putdocx begin, pagesize(A4) pagenum(decimal) footer(footer) header(header)
 putdocx paragraph, style (Heading2)
 putdocx text ("1.3. Description of patient disposition")
-putdocx save results/`today'_nocovid_report_preliminary.docx, append
+putdocx save results/`today'_nocovid19_report.docx, append
 
 label define eosreascd 1 "Voluntary discontinuation" 4 "Lost to follow-up" 6 "Death" 99 "Other", replace
 label var eosyn "Study completed"
 
-summtab, by(allocation) catvars(eosyn eosreas) contvars() word  wordname(results/`today'_nocovid_report_preliminary.docx) title("Table 1. Overview of study completion and reasons for non-completion") append
+summtab, by(allocation) catvars(eosyn eosreas) contvars() word  wordname(results/`today'_nocovid19_report.docx) title("Table 1. Overview of study completion and reasons for non-completion") append
 
 
 ** description of protocol deviations
@@ -123,7 +123,7 @@ list pdcate if pdcate !=.
 putdocx paragraph
 putdocx text ("One protocol deviation reported in the standard of care arm: Patient moved to ICU and started chloroquine treatment at the time of moving. At this stage of the pandemic, chloroquine was considered SOC for those who had serious covid-19. Date of deviation: 27.03.2020")
 
-putdocx save results/`today'_nocovid_report_preliminary.docx, append
+putdocx save results/`today'_nocovid19_report.docx, append
 
 
 
@@ -134,7 +134,7 @@ putdocx save results/`today'_nocovid_report_preliminary.docx, append
 putdocx begin, pagesize(A4) pagenum(decimal) footer(footer) header(header)
 putdocx paragraph, style(Heading1)
 putdocx text ("2.	Baseline characteristics")
-putdocx save results/`today'_nocovid_report_preliminary.docx, append
+putdocx save results/`today'_nocovid19_report.docx, append
 
 
 
@@ -176,7 +176,7 @@ label val fever yesno_lab
 
 
 
-summtab, by(allocation) catvars(sex supplemental_oxygen hypertension diabetes cad opd obesity any_morbidity fever smoking) contvars(news dmage vsbmi respiratory_rate temp sbp dbp saturation pulse) total mean median range pnonmiss catmisstype(missnoperc) word wordname(results/`today'_nocovid_report_preliminary.docx) title("Table 2. Baseline characteristics for all randomised participants (N=53)") append
+summtab, by(allocation) catvars(sex supplemental_oxygen hypertension diabetes cad opd obesity any_morbidity fever smoking) contvars(news dmage vsbmi respiratory_rate temp sbp dbp saturation pulse) total mean median range pnonmiss catmisstype(missnoperc) word wordname(results/`today'_nocovid19_report.docx) title("Table 2. Baseline characteristics for all randomised participants (N=53)") append
 
 
 
@@ -187,7 +187,7 @@ summtab, by(allocation) catvars(sex supplemental_oxygen hypertension diabetes ca
 putdocx begin, pagesize(A4) pagenum(decimal) footer(footer) header(header)
 putdocx paragraph, style(Heading1)
 putdocx text ("3.	Study drug exposure")
-putdocx save results/`today'_nocovid_report_preliminary.docx, append
+putdocx save results/`today'_nocovid19_report.docx, append
 
 
 
@@ -209,7 +209,7 @@ label var tablet_doses	"Total number of 400mg doses received"
 label var totaldose "Total dose (mg)"
 
 
-summtab, catvars(tablet_doses) contvars(totaldose) median range pnonmiss catmisstype(missnoperc) medfmt(0) rangefmt(0) word wordname(results/`today'_nocovid_report_preliminary.docx) title("Table 3. Description of study drug exposure among those randomised to the hydroxychloroquine arm (N=27)") append
+summtab, catvars(tablet_doses) contvars(totaldose) median range pnonmiss catmisstype(missnoperc) medfmt(0) rangefmt(0) word wordname(results/`today'_nocovid19_report.docx) title("Table 3. Description of study drug exposure among those randomised to the hydroxychloroquine arm (N=27)") append
 
 
 
@@ -223,7 +223,7 @@ putdocx text ("4.	Safety analysis")
 putdocx paragraph, style(Heading2)
 putdocx text ("4.1.	Adverse events of special interest")
 
-putdocx save results/`today'_nocovid_report_preliminary.docx, append
+putdocx save results/`today'_nocovid19_report.docx, append
 
 use data/anon/safety_aesi
 
@@ -270,13 +270,13 @@ tab sqblurs if blurry==1, mis
 
 
 
-summtab, by(allocation) catvars(nausea sqnauss diarrhoea sqdiars pain sqabdps rash sqskins blurry sqblurs) contvars()  total mean range catmisstype(none) medfmt(0) rangefmt(0) word wordname(results/`today'_nocovid_report_preliminary.docx) title("Table 4. Description of Adverse Events of Special Interest (AESI)") append
+summtab, by(allocation) catvars(nausea sqnauss diarrhoea sqdiars pain sqabdps rash sqskins blurry sqblurs) contvars()  total mean range catmisstype(none) medfmt(0) rangefmt(0) word wordname(results/`today'_nocovid19_report.docx) title("Table 4. Description of Adverse Events of Special Interest (AESI)") append
 
 /*
 putdocx begin, pagesize(A4) pagenum(decimal) footer(footer) header(header)
 putdocx paragraph
 putdocx text ("Note: The numbers in the table title reflect the number of days where AESI were assessed and reported in Viedoc")
-putdocx save `today'_nocovid_report_preliminary.docx, append
+putdocx save `today'_nocovid19_report.docx, append
 */
 
 label def event_lab 0 "0" 1 "1" 2 "2" 3 "≥3"
@@ -311,7 +311,7 @@ label var any_aesi "Number of any AESI per person"
 
 
 
-summtab if day==0, by(allocation) catvars(nausea3 diarrhoea3 pain3 rash3 blurry3 any_aesi) contvars() total mean range catmisstype(none) medfmt(0) rangefmt(0) word wordname(results/`today'_nocovid_report_preliminary.docx) title("Table 5. Description of patients with Adverse Events of Special Interest (AESI, N=53)") append
+summtab if day==0, by(allocation) catvars(nausea3 diarrhoea3 pain3 rash3 blurry3 any_aesi) contvars() total mean range catmisstype(none) medfmt(0) rangefmt(0) word wordname(results/`today'_nocovid19_report.docx) title("Table 5. Description of patients with Adverse Events of Special Interest (AESI, N=53)") append
 
 
 putdocx begin, pagesize(A4) pagenum(decimal) footer(footer) header(header)
@@ -319,7 +319,7 @@ putdocx paragraph, style(Heading2)
 putdocx text ("4.2.	Additional adverse events and serious adverse events")
 putdocx paragraph
 putdocx text ("Note: there was no patient with more than one adverse event/serious adverse event")
-putdocx save results/`today'_nocovid_report_preliminary.docx, append
+putdocx save results/`today'_nocovid19_report.docx, append
 
 
 
@@ -374,7 +374,7 @@ tab susar_term
 
 
 
-summtab, by(allocation) catvars(any_ae any_sae ae_term ae_soc sae_term death_term susar_term) contvars() total mean range catmisstype(none) medfmt(0) rangefmt(0) word wordname(results/`today'_nocovid_report_preliminary.docx) title("Table 6. Description of patients with Adverse Events (N=53)") append
+summtab, by(allocation) catvars(any_ae any_sae ae_term ae_soc sae_term death_term susar_term) contvars() total mean range catmisstype(none) medfmt(0) rangefmt(0) word wordname(results/`today'_nocovid19_report.docx) title("Table 6. Description of patients with Adverse Events (N=53)") append
 
 
 
@@ -407,10 +407,10 @@ putdocx text ("The primary null hypothesis is that there is no difference in the
 putdocx paragraph, style (Heading2)
 putdocx text ("5.2. Description of the viral load data")
 
-putdocx save results/`today'_nocovid_report_preliminary.docx, append
+putdocx save results/`today'_nocovid19_report.docx, append
 
 putdocx begin, pagesize(A4) pagenum(decimal) footer(footer) header(header)
-summtab, by(day) catvars() contvars(viralload log_viralload) median mean range total word wordname(results/`today'_nocovid_report_preliminary.docx) title("Table 7. Description of viral load overall and by study time point") append
+summtab, by(day) catvars() contvars(viralload log_viralload) median mean range total word wordname(results/`today'_nocovid19_report.docx) title("Table 7. Description of viral load overall and by study time point") append
 
 **mixed model to assess the treatment effect FAS
 putdocx begin, pagesize(A4) pagenum(decimal) footer(footer) header(header)
@@ -449,7 +449,7 @@ graph save results/figs/marginsplot_itt.gph, replace
 putdocx paragraph, halign(center)
 putdocx image results/figs/marginsplot.png, width(5) height(4)
 
-putdocx save results/`today'_nocovid_report_preliminary.docx, append
+putdocx save results/`today'_nocovid19_report.docx, append
 
 
 **mixed model assumption check
@@ -511,7 +511,7 @@ graph save results/figs/marginsplot_perprotocol.gph, replace
 putdocx paragraph, halign(center)
 putdocx image results/figs/marginsplot2.png, width(5) height(4)
 
-putdocx save results/`today'_nocovid_report_preliminary.docx, append
+putdocx save results/`today'_nocovid19_report.docx, append
 
 
 **mixed model assumption check
@@ -570,7 +570,7 @@ graph save results/figs/trajectories.gph, replace
 putdocx paragraph, halign(center)
 putdocx image results/figs/trajectories.png, width(5) height(4)
 
-putdocx save results/`today'_nocovid_report_preliminary.docx, append
+putdocx save results/`today'_nocovid19_report.docx, append
 
 
 
@@ -599,7 +599,7 @@ margins, dydx(allocation) at(Study_Day == 2) /* Difference at week 1 */
 putdocx table tab21 = etable, title("Table 21. Estimated marginal mean difference between the treatment groups at time point 48 hours") 
 
 
-putdocx save results/`today'_nocovid_report_preliminary.docx, append
+putdocx save results/`today'_nocovid19_report.docx, append
 
 
 
