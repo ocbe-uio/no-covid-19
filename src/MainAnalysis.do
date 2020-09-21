@@ -385,13 +385,16 @@ summtab, by(allocation) catvars(any_ae any_sae ae_term ae_soc sae_term death_ter
 **load data
  
 use data/anon/efficacy_fas, clear
+drop if itt == 0
 
 **recode and re-label of relevant variables
 
 gen log_viralload=log10(viralload+1)
 label var log_viralload "Viral load log10 in RNA copies/ml"
 label var day "Timepoint"
-
+sort randid day 
+by randid: gen count=_n
+keep if count<4
 
 
 **description of hypothesis in the report
